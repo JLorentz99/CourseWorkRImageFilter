@@ -1,0 +1,101 @@
+---
+title: "Image Filter Exam"
+author: "Johan Lorentz"
+output: html_document
+---
+
+## Aim
+
+The algorithm reads an image, changes the RGB values pixel by pixel, and then returns a new filtered image.
+
+The filters included are:
+
+- greyscale
+- red
+- green
+- blue
+- cutoff filter using two colours
+
+## Load packages and functions
+
+```{r}
+# Install these if needed:
+install.packages("magick")
+install.packages("devtools")
+
+library(magick)
+library(devtools)
+
+# Load the functions from the R package folder
+devtools::load_all(".")
+```
+
+## Choose image
+
+Put your image file in the project folder and write the file name here.
+
+```{r}
+image_path <- "/Users/johan.lorentz.2/Library/CloudStorage/OneDrive-KarolinskaInstitutet/Desktop/CourseWork/GroupExam/GroupExam/Test image-1.jpg"
+
+original_image <- image_read(image_path)
+print(original_image)
+```
+
+## Apply greyscale filter
+
+```{r}
+grey_image <- filter_image(image_path, make_grey_pixel)
+print(grey_image)
+
+image_write(grey_image, "grey_image.png")
+```
+
+## Apply red filter
+
+```{r}
+red_image <- filter_image(image_path, make_red_pixel)
+print(red_image)
+
+image_write(red_image, "red_image.png")
+```
+
+## Apply green filter
+
+```{r}
+green_image <- filter_image(image_path, make_green_pixel)
+print(green_image)
+
+image_write(green_image, "green_image.png")
+```
+
+## Apply blue filter
+
+```{r}
+blue_image <- filter_image(image_path, make_blue_pixel)
+print(blue_image)
+
+image_write(blue_image, "blue_image.png")
+```
+
+## Apply cutoff filter
+
+For this filter, the pixel is first converted to a greyscale value. If the value is below the cutoff, it becomes black. If the value is equal to or above the cutoff, it becomes pink.
+
+```{r}
+cutoff_image <- filter_image(
+  image_path,
+  make_cutoff_pixel,
+  cutoff = 127,
+  low_colour = "#000000",
+  high_colour = "#FF00FF"
+)
+
+print(cutoff_image)
+image_write(cutoff_image, "cutoff_image.png")
+```
+
+## Short explanation
+
+The package separates the code into two main parts. First, there are small pixel functions, such as `make_grey_pixel()` and `make_red_pixel()`, that take one RGB pixel and return a changed RGB pixel. Second, the `change_bitmap()` function loops through the full bitmap and applies one of these pixel functions to every pixel.
+
+This makes it possible to reuse the same bitmap-changing function with different filters.
