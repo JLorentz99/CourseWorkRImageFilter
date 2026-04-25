@@ -29,6 +29,6 @@ library(devtools)
 load_all(".")
 ```
 
-Put an image named `image.png` in the project folder.
+Put an image named `Test image-1.jpg` in the project folder.
 
 Then run the R Markdown file `image_filter_exam.Rmd`.
