@@ -17,7 +17,7 @@ The package applies simple image filters to images by changing RGB pixel values.
 
 ## How to use
 
-Open `johan_lorentz.Rproj` in RStudio.
+Open `GroupExam.Rproj` in RStudio.
 
 Then run:
 
